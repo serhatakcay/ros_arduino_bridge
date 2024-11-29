@@ -1,3 +1,5 @@
+#include "encoder_driver.h"
+
 /* Functions and type-defs for PID control.
 
    Taken mostly from Mike Ferguson's ArbotiX code which lives at:
