@@ -266,7 +266,7 @@ void setup() {
     
     // tell pin change mask to listen to encoder pins
     PCMSK2 |= (1 << PCINT20);  // D4 için PCINT20
-    PCMSK1 |= (1 << PCINT23);  // D7 için PCINT23
+    PCMSK1 |= (1 << PCINT18);  // D2 için PCINT18
     
     // enable PCINT1 and PCINT2 interrupt in the general interrupt mask
     PCICR |= (1 << PCIE1) | (1 << PCIE2);
