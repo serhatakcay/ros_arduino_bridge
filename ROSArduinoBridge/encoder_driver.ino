@@ -43,7 +43,7 @@
 
   ISR (PCINT1_vect) {
     static uint8_t last_state_right = 0;
-    uint8_t new_state_right = digitalRead(7);  // D7 pini
+    uint8_t new_state_right = digitalRead(2);  // D2 pini
     if (new_state_right != last_state_right) {
       right_enc_pos++;
       last_state_right = new_state_right;
