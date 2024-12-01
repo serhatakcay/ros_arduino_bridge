@@ -30,32 +30,24 @@
 #elif defined(ARDUINO_ENC_COUNTER)
   volatile long left_enc_pos = 0L;
   volatile long right_enc_pos = 0L;
-  static const int8_t ENC_STATES [] = {0,1,-1,0,-1,0,0,1,1,0,0,-1,0,-1,1,0};  //encoder lookup table
     
-  /* Interrupt routine for LEFT encoder, taking care of actual counting */
-  ISR (PCINT2_vect){
-  	static uint8_t enc_last=0;
-        
-	enc_last <<=2; //shift previous state two places
-	enc_last |= (PIND & (3 << 2)) >> 2; //read the current state into lowest 2 bits
-  
-  	left_enc_pos += ENC_STATES[(enc_last & 0x0f)];
+  /* Interrupt routine for uc kablolu enkoder */
+  ISR (PCINT2_vect) {
+    static uint8_t last_state_left = 0;
+    uint8_t new_state_left = digitalRead(4);  // D4 pini
+    if (new_state_left != last_state_left) {
+      left_enc_pos++;
+      last_state_left = new_state_left;
+    }
   }
-  
-  /* Interrupt routine for RIGHT encoder, taking care of actual counting */
-  ISR (PCINT1_vect){
-        static uint8_t enc_last=0;
-          	
-	enc_last <<=2; //shift previous state two places
-	enc_last |= (PINC & (3 << 4)) >> 4; //read the current state into lowest 2 bits
-  
-  	right_enc_pos += ENC_STATES[(enc_last & 0x0f)];
-  }
-  
-  /* Wrap the encoder reading function */
-  long readEncoder(int i) {
-    if (i == LEFT) return left_enc_pos;
-    else return right_enc_pos;
+
+  ISR (PCINT1_vect) {
+    static uint8_t last_state_right = 0;
+    uint8_t new_state_right = digitalRead(7);  // D7 pini
+    if (new_state_right != last_state_right) {
+      right_enc_pos++;
+      last_state_right = new_state_right;
+    }
   }
 
   /* Wrap the encoder reset function */
