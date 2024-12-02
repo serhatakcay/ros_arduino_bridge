@@ -31,21 +31,22 @@
   volatile long left_enc_pos = 0L;
   volatile long right_enc_pos = 0L;
     
-  /* Interrupt routine for uc kablolu enkoder */
+  // D4 için PCINT2_vect kesmesi (PORTD)
   ISR (PCINT2_vect) {
     static uint8_t last_state_left = 0;
-    uint8_t new_state_left = digitalRead(4);  // D4 pini
+    uint8_t new_state_left = digitalRead(4);  // D4 pini (PCINT20)
     if (new_state_left != last_state_left) {
-      left_enc_pos++;
+      left_enc_pos++;  // Sol encoder sayacını artır
       last_state_left = new_state_left;
     }
   }
 
+  // A2 için PCINT1_vect kesmesi (PORTC)
   ISR (PCINT1_vect) {
     static uint8_t last_state_right = 0;
-    uint8_t new_state_right = digitalRead(2);  // D2 pini
+    uint8_t new_state_right = digitalRead(A2);  // A2 pini (PCINT10)
     if (new_state_right != last_state_right) {
-      right_enc_pos++;
+      right_enc_pos++;  // Sağ encoder sayacını artır
       last_state_right = new_state_right;
     }
   }
