@@ -80,7 +80,7 @@
   /* PID parameters and functions */
   #include "diff_controller.h"
 
-  /* Run the PID loop at 30 times per second */
+  /* PID döngüsünü saniyede 30 kez çalıştır */
   #define PID_RATE           30     // Hz
 
   /* Convert the rate into an interval */
